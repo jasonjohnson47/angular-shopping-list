@@ -1,8 +1,18 @@
 import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
+
+//import '@shoelace-style/shoelace/dist/themes/light.css';
+// included in angular.json instead, which puts the styles in styles.css
+
+//import '@shoelace-style/shoelace/dist/components/button/button.js';
+import '@shoelace-style/shoelace/dist/components/input/input.js';
+import '@shoelace-style/shoelace/dist/components/checkbox/checkbox.js';
+import '@shoelace-style/shoelace/dist/components/icon-button/icon-button.js';
+
+import { setBasePath } from '@shoelace-style/shoelace/dist/utilities/base-path';
+setBasePath('https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.73/dist/');
 
 if (environment.production) {
   enableProdMode();
