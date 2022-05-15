@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ListItemsService } from './list-items.service';
-import { Item } from './app.types';
+import { Item, ShoppingGroup } from './app.types';
+import { allShoppingItems } from 'src/all-shopping-items';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,31 @@ export class AppComponent {
 
   constructor( private listItemsService: ListItemsService ) { }
 
+  allShoppingItems = allShoppingItems;
+  filteredShoppingItems: ShoppingGroup[] = [];
   items = this.listItemsService.getItems();
+
+  autoCompleteSelectAddItem($event: any) {
+    this.addItem($event.detail.item.value)
+  }
+
+  // do we need this???
+  allShoppingItemsFlatArray: string[] = this.allShoppingItems.reduce((acc: string[], curr: ShoppingGroup) => {
+    return [...acc, ...curr.items];
+  }, []);
+
+  getAutocompleteSuggestions(text: string) {
+    if (text) {
+      this.filteredShoppingItems = allShoppingItems.reduce((acc: ShoppingGroup[], curr) => {
+        const filteredShoppingGroupItems = curr.items.filter((item) => item.includes(text));
+        const newShoppingGroup = {...curr, items: filteredShoppingGroupItems }
+        if (newShoppingGroup.items.length) {
+          return [...acc, newShoppingGroup];
+        }
+        return acc;
+      }, []);
+    }
+  }
 
   get nextId() {
     if (this.items == null) {

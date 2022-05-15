@@ -3,3 +3,8 @@ export interface Item {
   label: string;
   completed: boolean;
 }
+
+export interface ShoppingGroup {
+  category: string,
+  items: string[]
+}
