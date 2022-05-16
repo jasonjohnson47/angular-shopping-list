@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ListItemsService } from './list-items.service';
 import { Item, ShoppingGroup } from './app.types';
-import { allShoppingItems } from 'src/all-shopping-items';
+import { allShoppingItems } from 'src/assets/all-shopping-items';
 
 @Component({
   selector: 'app-root',
