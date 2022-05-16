@@ -20,7 +20,7 @@ export class ListItemsService {
     if (items) {
       return JSON.parse(items);
     } else {
-      return null;
+      return [];
     }
   }
 
