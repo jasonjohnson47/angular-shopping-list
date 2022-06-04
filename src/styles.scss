@@ -44,6 +44,9 @@ main {
 .add-icon-button::part(base):focus {
     color: var(--sl-color-cyan-900);
 }
+.add-icon-button::part(label) {
+    padding:0;
+}
 
 .delete-icon-button::part(base) {
     font-size: var(--sl-font-size-x-large);

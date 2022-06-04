@@ -6,7 +6,7 @@ import { environment } from './environments/environment';
 //import '@shoelace-style/shoelace/dist/themes/light.css';
 // included in angular.json instead, which puts the styles in styles.css
 
-//import '@shoelace-style/shoelace/dist/components/button/button.js';
+import '@shoelace-style/shoelace/dist/components/button/button.js';
 import '@shoelace-style/shoelace/dist/components/input/input.js';
 import '@shoelace-style/shoelace/dist/components/checkbox/checkbox.js';
 import '@shoelace-style/shoelace/dist/components/button/button.js';

@@ -4,7 +4,10 @@
       <h2 class="text-xl font-light text-center mb-4">Add Items to Your List</h2>
       <form ngNativeValidate (ngSubmit)="addItem(itemInput.value); itemInput.value = ''">
         <sl-input #itemInput class="item-input mb-4" label="Item" placeholder="What do you need to buy?" size="medium" pill required="true" (sl-input)="getAutocompleteSuggestions(itemInput.value)">
-          <sl-icon-button slot="suffix" name="plus-circle-fill" label="Add Item to List" class="add-icon-button pr-2" (click)="addItem(itemInput.value); itemInput.value = ''; itemInput.focus()"></sl-icon-button>
+          <!--<sl-icon-button slot="suffix" name="plus-circle-fill" label="Add Item to List" class="add-icon-button pr-2"></sl-icon-button>-->
+          <sl-button type="submit" slot="suffix" variant="text" class="add-icon-button pr-2">
+            <sl-icon name="plus-circle-fill" label="Add Item to List"></sl-icon>
+          </sl-button>
         </sl-input>
         <sl-menu *ngIf="itemInput.value && filteredShoppingItems.length" (sl-select)="autoCompleteSelectAddItem($event); itemInput.value = ''">
           <div *ngFor="let group of filteredShoppingItems">
