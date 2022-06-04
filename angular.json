@@ -33,8 +33,7 @@
             "styles": [
               "./node_modules/@shoelace-style/shoelace/dist/themes/light.css",
               "src/styles.scss"
-            ],
-            "scripts": ["src/assets/all-shopping-items.ts"]
+            ]
           },
           "configurations": {
             "production": {
@@ -102,8 +101,7 @@
             "styles": [
               "./node_modules/@shoelace-style/shoelace/dist/themes/light.css",
               "src/styles.scss"
-            ],
-            "scripts": ["src/assets/all-shopping-items.ts"]
+            ]
           }
         }
       }

@@ -1,18 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ListItemsService } from './list-items.service';
 import { Item, ShoppingGroup } from './app.types';
-import { allShoppingItems } from 'src/assets/all-shopping-items';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
-  constructor( private listItemsService: ListItemsService ) { }
+  constructor(
+    private listItemsService: ListItemsService,
+    private httpClient: HttpClient
+  ) { }
 
-  allShoppingItems = allShoppingItems;
+  allShoppingItems: any = [];
+
+  ngOnInit(){
+    this.httpClient.get("assets/all-shopping-items.json").subscribe(data =>{
+      console.log(data, Array.isArray(data));
+      this.allShoppingItems = data;
+    })
+  }
+
   filteredShoppingItems: ShoppingGroup[] = [];
   items = this.listItemsService.getItems();
 
@@ -27,8 +38,8 @@ export class AppComponent {
 
   getAutocompleteSuggestions(text: string) {
     if (text) {
-      this.filteredShoppingItems = allShoppingItems.reduce((acc: ShoppingGroup[], curr) => {
-        const filteredShoppingGroupItems = curr.items.filter((item) => item.includes(text));
+      this.filteredShoppingItems = this.allShoppingItems.reduce((acc: ShoppingGroup[], curr: any) => {
+        const filteredShoppingGroupItems = curr.items.filter((item: any) => item.includes(text));
         const newShoppingGroup = {...curr, items: filteredShoppingGroupItems }
         if (newShoppingGroup.items.length) {
           return [...acc, newShoppingGroup];
@@ -39,10 +50,10 @@ export class AppComponent {
   }
 
   get nextId() {
-    if (this.items == null) {
+    if (this.items.length == 0) {
       return '0';
     }
-    const itemIds = this.items.map((item: Item) => Number(item.id));
+    const itemIds: number[] = this.items.map((item: Item) => Number(item.id));
     const highestId = Math.max(...itemIds);
     const nextId = String(highestId + 1);
     return nextId;
