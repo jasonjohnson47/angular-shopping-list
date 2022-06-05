@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ListItemsService } from './list-items.service';
 import { Item, ShoppingGroup } from './app.types';
 import { HttpClient } from '@angular/common/http';
@@ -16,11 +16,13 @@ export class AppComponent implements OnInit {
     private httpClient: HttpClient
   ) { }
 
+  @ViewChild('itemInput') itemInput!: any;
+
   allShoppingItems: any = [];
 
   ngOnInit(){
     this.httpClient.get("assets/all-shopping-items.json").subscribe(data =>{
-      console.log(data, Array.isArray(data));
+      //console.log(data, Array.isArray(data));
       this.allShoppingItems = data;
     })
   }
@@ -74,6 +76,7 @@ export class AppComponent implements OnInit {
       this.items.push(newItem);
     }
     this.listItemsService.setItems(this.items);
+    this.itemInput.nativeElement.focus();
   }
 
   removeItem(id: string) {
