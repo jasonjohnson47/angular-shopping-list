@@ -59,14 +59,26 @@ sl-menu-label::part(base) {
     background-color: var(--jj-color-slate-100);
     text-transform: uppercase;
 }
-
+sl-menu-item::part(label) {
+    white-space: normal;
+    line-height: 1.25;
+}
 sl-menu {
     width:100%;
 }
-sl-menu::part(base) {
-    width:100%;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+@media (min-width: 452px) {
+	sl-menu::part(base) {
+        width:100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+}
+@media (min-width: 638px) {
+	sl-menu::part(base) {
+        width:100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
 }
 
 .list-item-placeholder {

@@ -81,6 +81,6 @@
     },
     {
         "category":"household",
-        "items": ["garbage bags", "laundry detergent", "laundry softener", "bleach", "dishwashing soap", "dishwasher pods", "hand soap", "household cleaner", "glass cleaner", "sponges", "batteries", "light bulbs", "air freshener/disinfectant"]
+        "items": ["garbage bags", "laundry detergent", "laundry softener", "bleach", "dishwashing soap", "dishwasher pods", "hand soap", "household cleaner", "glass cleaner", "sponges", "batteries", "light bulbs", "air freshener"]
     }
 ]
