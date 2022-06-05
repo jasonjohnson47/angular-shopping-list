@@ -32,8 +32,13 @@
   </section>
   <section class="mb-8">
       <h2 *ngIf="items.length" class="text-xl font-light mb-4">Things You Need</h2>
-      <ul>
-          <li *ngFor="let item of items; last as isLast" [class.border-b]="isLast" class="border-t flex justify-between items-center py-1">
+      <ul cdkDropList (cdkDropListDropped)="drop($event)">
+          <li
+            *ngFor="let item of items; last as isLast"
+            [class.border-b]="isLast"
+            class="border-t flex justify-between items-center py-1"
+            cdkDrag
+          >
               <sl-checkbox [checked]="item.completed" #listItemCheckbox (sl-change)="onCheckboxChange(item.id, listItemCheckbox.checked)" class="-mt-1">{{ item.label }}</sl-checkbox>
               <sl-icon-button name="x" label="Delete" class="delete-icon-button" (click)="removeItem(item.id)"></sl-icon-button>
           </li>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ListItemsService } from './list-items.service';
 import { Item, ShoppingGroup } from './app.types';
 import { HttpClient } from '@angular/common/http';
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-root',
@@ -35,6 +36,10 @@ export class AppComponent implements OnInit {
   allShoppingItemsFlatArray: string[] = this.allShoppingItems.reduce((acc: string[], curr: ShoppingGroup) => {
     return [...acc, ...curr.items];
   }, []);
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.items, event.previousIndex, event.currentIndex);
+  }
 
   getAutocompleteSuggestions(text: string) {
     if (text) {
