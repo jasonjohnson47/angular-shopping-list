@@ -32,15 +32,19 @@
   </section>
   <section class="mb-8">
       <h2 *ngIf="items.length" class="text-xl font-light mb-4">Things You Need</h2>
-      <ul cdkDropList (cdkDropListDropped)="drop($event)">
+      <ul cdkDropList (cdkDropListDropped)="drop($event)" class="shopping-list-items">
           <li
             *ngFor="let item of items; last as isLast"
             [class.border-b]="isLast"
             class="border-t flex justify-between items-center py-1"
             cdkDrag
           >
-              <sl-checkbox [checked]="item.completed" #listItemCheckbox (sl-change)="onCheckboxChange(item.id, listItemCheckbox.checked)" class="-mt-1">{{ item.label }}</sl-checkbox>
+            <div class="list-item-placeholder" *cdkDragPlaceholder></div>
+            <sl-checkbox [checked]="item.completed" #listItemCheckbox (sl-change)="onCheckboxChange(item.id, listItemCheckbox.checked)" class="-mt-1">{{ item.label }}</sl-checkbox>
+            <div>
+              <sl-icon name="grip-horizontal" cdkDragHandle></sl-icon>
               <sl-icon-button name="x" label="Delete" class="delete-icon-button" (click)="removeItem(item.id)"></sl-icon-button>
+            </div>
           </li>
       </ul>
   </section>

@@ -37,8 +37,10 @@ export class AppComponent implements OnInit {
     return [...acc, ...curr.items];
   }, []);
 
+  // reorder items after drag/drop
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.items, event.previousIndex, event.currentIndex);
+    this.listItemsService.setItems(this.items);
   }
 
   getAutocompleteSuggestions(text: string) {
