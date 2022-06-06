@@ -9,11 +9,11 @@
             <sl-icon name="plus-circle-fill" label="Add Item to List"></sl-icon>
           </sl-button>
         </sl-input>
-        <sl-menu *ngIf="itemInput.value && filteredShoppingItems.length" (sl-select)="autoCompleteSelectAddItem($event); itemInput.value = ''">
-          <div *ngFor="let group of filteredShoppingItems">
+        <sl-menu *ngIf="itemInput.value && filteredAutoCompleteShoppingItems.length" (sl-select)="autoCompleteSelectAddItem($event); itemInput.value = ''">
+          <div *ngFor="let group of filteredAutoCompleteShoppingItems">
             <sl-menu-label>{{ group.category }}</sl-menu-label>
             <ng-container *ngFor="let item of group.items">
-              <sl-menu-item value="{{ item }}">{{ item }}</sl-menu-item>
+              <sl-menu-item value="{{ item }}" tabindex="0">{{ item }}</sl-menu-item>
             </ng-container>
           </div>
         </sl-menu>
@@ -23,18 +23,23 @@
             <div *ngFor="let group of allShoppingItems">
               <sl-menu-label>{{ group.category }}</sl-menu-label>
               <ng-container *ngFor="let item of group.items">
-                <sl-menu-item value="{{ item }}">{{ item }}</sl-menu-item>
+                <sl-menu-item value="{{ item }}" tabindex="0">{{ item }}</sl-menu-item>
               </ng-container>
             </div>
           </sl-menu>
         </sl-dropdown>
       </form>
   </section>
+  <sl-radio-group class="mb-8 flex justify-center" label="Select an option">
+    <sl-radio-button name="list-filter-all" value="all" [checked]="filteredListShoppingItems == 'all'" (click)="filteredListShoppingItems = 'all'">All</sl-radio-button>
+    <sl-radio-button name="list-filter-need" value="need" [checked]="filteredListShoppingItems == 'need'" (click)="filteredListShoppingItems = 'need'">Need</sl-radio-button>
+    <sl-radio-button name="list-filter-got" value="got" [checked]="filteredListShoppingItems == 'got'" (click)="filteredListShoppingItems = 'got'">Got</sl-radio-button>
+  </sl-radio-group>
   <section class="mb-8">
       <h2 *ngIf="items.length" class="text-xl font-light mb-4">Things You Need</h2>
       <ul cdkDropList (cdkDropListDropped)="drop($event)" class="shopping-list-items">
           <li
-            *ngFor="let item of items; last as isLast"
+            *ngFor="let item of listItems; last as isLast"
             [class.border-b]="isLast"
             class="border-t flex justify-between items-center py-1"
             cdkDrag

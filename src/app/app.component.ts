@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ListItemsService } from './list-items.service';
 import { Item, ShoppingGroup } from './app.types';
 import { HttpClient } from '@angular/common/http';
-import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-root',
@@ -27,17 +27,30 @@ export class AppComponent implements OnInit {
     })
   }
 
-  filteredShoppingItems: ShoppingGroup[] = [];
+  filteredAutoCompleteShoppingItems: ShoppingGroup[] = [];
   items = this.listItemsService.getItems();
 
   autoCompleteSelectAddItem($event: any) {
     this.addItem($event.detail.item.value)
   }
 
+  filteredListShoppingItems: 'all' | 'need' | 'got' = 'all';
+
+  get listItems() {
+
+    if (this.filteredListShoppingItems == 'all') {
+        return this.items;
+    }
+    if (this.filteredListShoppingItems == 'need') {
+      return this.items.filter((item: any) => !item.completed);
+    }
+    return this.items.filter((item: any) => item.completed);
+  }
+
   // do we need this???
-  allShoppingItemsFlatArray: string[] = this.allShoppingItems.reduce((acc: string[], curr: ShoppingGroup) => {
+  /*allShoppingItemsFlatArray: string[] = this.allShoppingItems.reduce((acc: string[], curr: ShoppingGroup) => {
     return [...acc, ...curr.items];
-  }, []);
+  }, []);*/
 
   // reorder items after drag/drop
   drop(event: CdkDragDrop<string[]>) {
@@ -47,7 +60,7 @@ export class AppComponent implements OnInit {
 
   getAutocompleteSuggestions(text: string) {
     if (text) {
-      this.filteredShoppingItems = this.allShoppingItems.reduce((acc: ShoppingGroup[], curr: any) => {
+      this.filteredAutoCompleteShoppingItems = this.allShoppingItems.reduce((acc: ShoppingGroup[], curr: any) => {
         const filteredShoppingGroupItems = curr.items.filter((item: any) => item.includes(text));
         const newShoppingGroup = {...curr, items: filteredShoppingGroupItems }
         if (newShoppingGroup.items.length) {
