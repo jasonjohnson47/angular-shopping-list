@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
   allShoppingItems: any = [];
 
   ngOnInit(){
-    this.httpClient.get("assets/all-shopping-items.json").subscribe(data =>{
+    this.httpClient.get("assets/all-shopping-items.json").subscribe((data) => {
       //console.log(data, Array.isArray(data));
       this.allShoppingItems = data;
     })
@@ -30,8 +30,9 @@ export class AppComponent implements OnInit {
   filteredAutoCompleteShoppingItems: ShoppingGroup[] = [];
   items = this.listItemsService.getItems();
 
-  autoCompleteSelectAddItem($event: any) {
-    this.addItem($event.detail.item.value)
+  autoCompleteSelectAddItem($event: Event) {
+    console.log($event);
+    this.addItem(($event as CustomEvent).detail.item.value);
   }
 
   filteredListShoppingItems: 'all' | 'need' | 'got' = 'all';
@@ -42,15 +43,10 @@ export class AppComponent implements OnInit {
         return this.items;
     }
     if (this.filteredListShoppingItems == 'need') {
-      return this.items.filter((item: any) => !item.completed);
+      return this.items.filter((item: Item) => !item.completed);
     }
-    return this.items.filter((item: any) => item.completed);
+    return this.items.filter((item: Item) => item.completed);
   }
-
-  // do we need this???
-  /*allShoppingItemsFlatArray: string[] = this.allShoppingItems.reduce((acc: string[], curr: ShoppingGroup) => {
-    return [...acc, ...curr.items];
-  }, []);*/
 
   // reorder items after drag/drop
   drop(event: CdkDragDrop<string[]>) {
@@ -60,8 +56,8 @@ export class AppComponent implements OnInit {
 
   getAutocompleteSuggestions(text: string) {
     if (text) {
-      this.filteredAutoCompleteShoppingItems = this.allShoppingItems.reduce((acc: ShoppingGroup[], curr: any) => {
-        const filteredShoppingGroupItems = curr.items.filter((item: any) => item.includes(text));
+      this.filteredAutoCompleteShoppingItems = this.allShoppingItems.reduce((acc: ShoppingGroup[], curr: ShoppingGroup) => {
+        const filteredShoppingGroupItems = curr.items.filter((item: string) => item.includes(text));
         const newShoppingGroup = {...curr, items: filteredShoppingGroupItems }
         if (newShoppingGroup.items.length) {
           return [...acc, newShoppingGroup];
@@ -96,6 +92,18 @@ export class AppComponent implements OnInit {
     const newItems = this.items.filter((item: Item) => item.id != id);
     this.items = newItems;
     this.listItemsService.setItems(newItems);
+  }
+
+  removeAllItems() {
+    this.items = [];
+    this.listItemsService.setItems(this.items);
+  }
+  uncheckAllItems() {
+    const itemsUpdated = this.items.map((item: Item) => {
+      return { ...item, completed: false }
+    });
+    this.items = itemsUpdated;
+    this.listItemsService.setItems(itemsUpdated);
   }
 
   onCheckboxChange(id: string, value: boolean) {
