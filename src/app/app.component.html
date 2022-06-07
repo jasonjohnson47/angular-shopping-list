@@ -1,15 +1,21 @@
 <main>
 
   <sl-dialog label="Confirm" #dialogConfirmRemove class="dialog-confirm-remove">
-    Are you sure you want to remove all items from the shopping&nbsp;list?
+    <p>Are you sure you want to remove all items from the shopping&nbsp;list?</p>
     <sl-button slot="footer" variant="default" (click)="dialogConfirmRemove.hide()">Cancel</sl-button>
     <sl-button slot="footer" variant="primary" (click)="removeAllItems(); dialogConfirmRemove.hide()">Yes</sl-button>
   </sl-dialog>
 
   <sl-dialog label="Confirm" #dialogConfirmUncheck class="dialog-confirm-uncheck">
-    Are you sure you want to uncheck all items in the shopping&nbsp;list?
+    <p>Are you sure you want to uncheck all items in the shopping&nbsp;list?</p>
     <sl-button slot="footer" variant="default" (click)="dialogConfirmUncheck.hide()">Cancel</sl-button>
     <sl-button slot="footer" variant="primary" (click)="uncheckAllItems(); dialogConfirmUncheck.hide()">Yes</sl-button>
+  </sl-dialog>
+
+  <sl-dialog label="Save List" #dialogSaveList class="dialog-save-list">
+    <p>This feature is on the way. Nothing will happen if you click Save.</p>
+    <sl-button slot="footer" variant="default" (click)="dialogSaveList.hide()">Cancel</sl-button>
+    <sl-button slot="footer" variant="primary" (click)="saveList(); dialogSaveList.hide()">Save</sl-button>
   </sl-dialog>
 
   <h1 class="text-3xl font-light text-cyan-700 text-center mb-4">My Shopping List</h1>
@@ -89,6 +95,13 @@
       class="w-full mb-2"
       (click)="dialogConfirmUncheck.show()"
     >Uncheck All Items</sl-button>
-    <sl-button variant="primary" size="medium" pill outline class="w-full mb-2">Save This List</sl-button>
+    <sl-button
+      variant="primary"
+      size="medium"
+      pill
+      outline
+      class="w-full mb-2"
+      (click)="dialogSaveList.show()"
+    >Save This List</sl-button>
   </div>
 </main>

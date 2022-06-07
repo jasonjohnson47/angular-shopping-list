@@ -98,12 +98,17 @@ export class AppComponent implements OnInit {
     this.items = [];
     this.listItemsService.setItems(this.items);
   }
+
   uncheckAllItems() {
     const itemsUpdated = this.items.map((item: Item) => {
       return { ...item, completed: false }
     });
     this.items = itemsUpdated;
     this.listItemsService.setItems(itemsUpdated);
+  }
+
+  saveList() {
+    console.log('need to implement this functionality');
   }
 
   onCheckboxChange(id: string, value: boolean) {
