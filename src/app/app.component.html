@@ -1,4 +1,17 @@
 <main>
+
+  <sl-dialog label="Confirm" #dialogConfirmRemove class="dialog-confirm-remove">
+    Are you sure you want to remove all items from the shopping&nbsp;list?
+    <sl-button slot="footer" variant="default" (click)="dialogConfirmRemove.hide()">Cancel</sl-button>
+    <sl-button slot="footer" variant="primary" (click)="removeAllItems(); dialogConfirmRemove.hide()">Yes</sl-button>
+  </sl-dialog>
+
+  <sl-dialog label="Confirm" #dialogConfirmUncheck class="dialog-confirm-uncheck">
+    Are you sure you want to uncheck all items in the shopping&nbsp;list?
+    <sl-button slot="footer" variant="default" (click)="dialogConfirmUncheck.hide()">Cancel</sl-button>
+    <sl-button slot="footer" variant="primary" (click)="uncheckAllItems(); dialogConfirmUncheck.hide()">Yes</sl-button>
+  </sl-dialog>
+
   <h1 class="text-3xl font-light text-cyan-700 text-center mb-4">My Shopping List</h1>
   <section class="bg-slate-100 border border-solid border-slate-200 rounded p-5 mb-8">
       <h2 class="text-xl font-light text-center mb-4">Add Items to Your List</h2>
@@ -41,15 +54,19 @@
       <h2 *ngIf="items.length && filteredListShoppingItems == 'got'" class="text-xl font-light mb-4">Things You Got</h2>
       <ul cdkDropList (cdkDropListDropped)="drop($event)" class="shopping-list-items">
           <li
-            *ngFor="let item of listItems; last as isLast"
-            [class.border-b]="isLast"
-            class="border-t flex justify-between items-center py-1"
+            *ngFor="let item of listItems"
+            class="border-y -mt-px flex justify-between items-center py-1"
             cdkDrag
           >
             <div class="list-item-placeholder" *cdkDragPlaceholder></div>
             <sl-checkbox [checked]="item.completed" #listItemCheckbox (sl-change)="onCheckboxChange(item.id, listItemCheckbox.checked)" class="-mt-1">{{ item.label }}</sl-checkbox>
-            <div>
-              <sl-icon [hidden]="listItems.length < 2" name="grip-horizontal" cdkDragHandle></sl-icon>
+            <div class="flex">
+              <sl-icon
+                [hidden]="listItems.length < 2"
+                name="grip-horizontal"
+                cdkDragHandle
+                class="px-2 shopping-list-item-drag-handle"
+              ></sl-icon>
               <sl-icon-button name="x" label="Delete" class="delete-icon-button" (click)="removeItem(item.id)"></sl-icon-button>
             </div>
           </li>
@@ -62,7 +79,7 @@
       pill
       outline
       class="w-full mb-2"
-      (click)="removeAllItems()"
+      (click)="dialogConfirmRemove.show()"
     >Remove All Items from List</sl-button>
     <sl-button
       variant="primary"
@@ -70,7 +87,7 @@
       pill
       outline
       class="w-full mb-2"
-      (click)="uncheckAllItems()"
+      (click)="dialogConfirmUncheck.show()"
     >Uncheck All Items</sl-button>
     <sl-button variant="primary" size="medium" pill outline class="w-full mb-2">Save This List</sl-button>
   </div>
