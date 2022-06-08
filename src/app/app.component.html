@@ -13,9 +13,16 @@
   </sl-dialog>
 
   <sl-dialog label="Save List" #dialogSaveList class="dialog-save-list">
-    <p>This feature is on the way. Nothing will happen if you click Save.</p>
+    <div>
+      <sl-input #listNameInput label="List Name" aria-required="true"></sl-input>
+    </div>
     <sl-button slot="footer" variant="default" (click)="dialogSaveList.hide()">Cancel</sl-button>
-    <sl-button slot="footer" variant="primary" (click)="saveList(); dialogSaveList.hide()">Save</sl-button>
+    <sl-button
+      slot="footer"
+      variant="primary"
+      (click)="saveList(listNameInput.value); dialogSaveList.hide()"
+      [disabled]="listNameInput.value == ''"
+    >Save</sl-button>
   </sl-dialog>
 
   <h1 class="text-3xl font-light text-cyan-700 text-center mb-4">My Shopping List</h1>
@@ -49,7 +56,7 @@
         </sl-dropdown>
       </form>
   </section>
-  <sl-radio-group *ngIf="listItems.length" class="mb-8 flex justify-center" label="Select an option">
+  <sl-radio-group *ngIf="items.length" class="mb-8 flex justify-center" label="Select an option">
     <sl-radio-button name="list-filter-all" value="all" [checked]="filteredListShoppingItems == 'all'" (click)="filteredListShoppingItems = 'all'">All</sl-radio-button>
     <sl-radio-button name="list-filter-need" value="need" [checked]="filteredListShoppingItems == 'need'" (click)="filteredListShoppingItems = 'need'">Need</sl-radio-button>
     <sl-radio-button name="list-filter-got" value="got" [checked]="filteredListShoppingItems == 'got'" (click)="filteredListShoppingItems = 'got'">Got</sl-radio-button>
@@ -60,7 +67,7 @@
       <h2 *ngIf="items.length && filteredListShoppingItems == 'got'" class="text-xl font-light mb-4">Things You Got</h2>
       <ul cdkDropList (cdkDropListDropped)="drop($event)" class="shopping-list-items">
           <li
-            *ngFor="let item of listItems"
+            *ngFor="let item of listItemsToDisplay"
             class="border-y -mt-px flex justify-between items-center py-1"
             cdkDrag
           >
@@ -68,7 +75,7 @@
             <sl-checkbox [checked]="item.completed" #listItemCheckbox (sl-change)="onCheckboxChange(item.id, listItemCheckbox.checked)" class="-mt-1">{{ item.label }}</sl-checkbox>
             <div class="flex">
               <sl-icon
-                [hidden]="listItems.length < 2"
+                [hidden]="listItemsToDisplay.length < 2"
                 name="grip-horizontal"
                 cdkDragHandle
                 class="px-2 shopping-list-item-drag-handle"
@@ -78,7 +85,7 @@
           </li>
       </ul>
   </section>
-  <div *ngIf="listItems.length">
+  <div *ngIf="items.length">
     <sl-button
       variant="primary"
       size="medium"

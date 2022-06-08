@@ -1,0 +1,32 @@
+[
+    {
+        "name": "My List 1",
+        "items": [
+            {
+                "id": "0",
+                "label": "banana",
+                "completed": false
+            },
+            {
+                "id": "1",
+                "label": "beer",
+                "completed": true
+            }
+        ]
+    },
+    {
+        "name": "My List 2",
+        "items": [
+            {
+                "id": "0",
+                "label": "avacado",
+                "completed": true
+            },
+            {
+                "id": "1",
+                "label": "popcorn",
+                "completed": false
+            }
+        ]
+    }
+]

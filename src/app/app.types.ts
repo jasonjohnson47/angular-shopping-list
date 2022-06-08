@@ -8,3 +8,8 @@ export interface ShoppingGroup {
   category: string,
   items: string[]
 }
+
+export interface SavedList {
+  name: string,
+  items: Item[]
+}

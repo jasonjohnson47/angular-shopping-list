@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Item } from './app.types';
+import { Item, SavedList } from './app.types';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +22,24 @@ export class ListItemsService {
     } else {
       return [];
     }
+  }
+
+  getSavedLists() {
+    const savedLists = localStorage.getItem('shopping-list-saved-lists');
+    if (savedLists) {
+      return JSON.parse(savedLists);
+    } else {
+      return [];
+    }
+  }
+
+  setSavedList(savedList: SavedList) {
+    const savedLists:SavedList[] = this.getSavedLists();
+    const updatedSavedLists = [...savedLists, savedList]
+    localStorage.setItem(
+      'shopping-list-saved-lists',
+      JSON.stringify(updatedSavedLists, null, 2)
+    );
   }
 
 }

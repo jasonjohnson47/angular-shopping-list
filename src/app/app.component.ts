@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ListItemsService } from './list-items.service';
-import { Item, ShoppingGroup } from './app.types';
+import { Item, ShoppingGroup, SavedList } from './app.types';
 import { HttpClient } from '@angular/common/http';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
@@ -37,7 +37,7 @@ export class AppComponent implements OnInit {
 
   filteredListShoppingItems: 'all' | 'need' | 'got' = 'all';
 
-  get listItems() {
+  get listItemsToDisplay() {
 
     if (this.filteredListShoppingItems == 'all') {
         return this.items;
@@ -107,8 +107,12 @@ export class AppComponent implements OnInit {
     this.listItemsService.setItems(itemsUpdated);
   }
 
-  saveList() {
-    console.log('need to implement this functionality');
+  saveList(listName: string) {
+    const savedList: SavedList = {
+      name: listName,
+      items: this.items,
+    };
+    this.listItemsService.setSavedList(savedList);
   }
 
   onCheckboxChange(id: string, value: boolean) {
