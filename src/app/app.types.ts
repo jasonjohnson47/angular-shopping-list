@@ -10,6 +10,7 @@ export interface ShoppingGroup {
 }
 
 export interface SavedList {
+  id: string,
   name: string,
   items: Item[]
 }

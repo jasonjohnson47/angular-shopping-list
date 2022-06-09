@@ -25,6 +25,19 @@
     >Save</sl-button>
   </sl-dialog>
 
+  <sl-dialog label="Saved Lists" #dialogSavedLists class="dialog-saved-lists">
+    <p class="mb-6">Choosing a list will replace your current list. If you want to save the items you currently have in your list, do that first.</p>
+    <ul>
+      <li
+        *ngFor="let savedList of savedLists"
+        class="border-y -mt-px py-1"
+      >
+        <sl-button variant="text" size="medium" (click)="loadList(savedList.id); dialogSavedLists.hide()">{{ savedList.name }}</sl-button>
+      </li>
+    </ul>
+    <sl-button slot="footer" variant="default" (click)="dialogSavedLists.hide()">Close</sl-button>
+  </sl-dialog>
+
   <h1 class="text-3xl font-light text-cyan-700 text-center mb-4">My Shopping List</h1>
   <section class="bg-slate-100 border border-solid border-slate-200 rounded p-5 mb-8">
       <h2 class="text-xl font-light text-center mb-4">Add Items to Your List</h2>
@@ -85,8 +98,9 @@
           </li>
       </ul>
   </section>
-  <div *ngIf="items.length">
+  <div class="action-buttons">
     <sl-button
+      *ngIf="items.length"
       variant="primary"
       size="medium"
       pill
@@ -95,6 +109,7 @@
       (click)="dialogConfirmRemove.show()"
     >Remove All Items from List</sl-button>
     <sl-button
+      *ngIf="items.length"
       variant="primary"
       size="medium"
       pill
@@ -103,6 +118,7 @@
       (click)="dialogConfirmUncheck.show()"
     >Uncheck All Items</sl-button>
     <sl-button
+      *ngIf="items.length"
       variant="primary"
       size="medium"
       pill
@@ -110,5 +126,13 @@
       class="w-full mb-2"
       (click)="dialogSaveList.show()"
     >Save This List</sl-button>
+    <sl-button
+      variant="primary"
+      size="medium"
+      pill
+      outline
+      class="w-full mb-2"
+      (click)="dialogSavedLists.show()"
+    >View Saved Lists</sl-button>
   </div>
 </main>

@@ -33,12 +33,10 @@ export class ListItemsService {
     }
   }
 
-  setSavedList(savedList: SavedList) {
-    const savedLists:SavedList[] = this.getSavedLists();
-    const updatedSavedLists = [...savedLists, savedList]
+  setSavedLists(savedLists: SavedList[]) {
     localStorage.setItem(
       'shopping-list-saved-lists',
-      JSON.stringify(updatedSavedLists, null, 2)
+      JSON.stringify(savedLists, null, 2)
     );
   }
 

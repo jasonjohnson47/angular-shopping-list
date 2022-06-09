@@ -1,7 +1,7 @@
 [
     {
         "category": "fruits",
-        "items": ["apples", "bananas", "oranges", "berries", "grapes", "melons"]
+        "items": ["apples", "bananas", "oranges", "berries", "grapes", "melons", "avacado"]
     },
     {
         "category":"vegetables",

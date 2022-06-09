@@ -29,9 +29,9 @@ export class AppComponent implements OnInit {
 
   filteredAutoCompleteShoppingItems: ShoppingGroup[] = [];
   items = this.listItemsService.getItems();
+  savedLists = this.listItemsService.getSavedLists();
 
   autoCompleteSelectAddItem($event: Event) {
-    console.log($event);
     this.addItem(($event as CustomEvent).detail.item.value);
   }
 
@@ -67,18 +67,18 @@ export class AppComponent implements OnInit {
     }
   }
 
-  get nextId() {
-    if (this.items.length == 0) {
+  getNextId(data: any[]) {
+    if (data.length == 0) {
       return '0';
     }
-    const itemIds: number[] = this.items.map((item: Item) => Number(item.id));
+    const itemIds: number[] = data.map((item: any) => Number(item.id));
     const highestId = Math.max(...itemIds);
     const nextId = String(highestId + 1);
     return nextId;
   }
 
   addItem(value: string) {
-    const newItem = { id: this.nextId, label: value, completed: false };
+    const newItem = { id: this.getNextId(this.items), label: value, completed: false };
     if (this.items == null) {
       this.items = [newItem];
     } else {
@@ -109,10 +109,18 @@ export class AppComponent implements OnInit {
 
   saveList(listName: string) {
     const savedList: SavedList = {
+      id: this.getNextId(this.savedLists),
       name: listName,
       items: this.items,
     };
-    this.listItemsService.setSavedList(savedList);
+    const updatedSavedLists = [...this.savedLists, savedList];
+    this.savedLists = updatedSavedLists;
+    this.listItemsService.setSavedLists(updatedSavedLists);
+  }
+  loadList(listId: string) {
+    const listItems = this.savedLists.find((list: SavedList) => listId == list.id).items;
+    this.items = listItems;
+    this.listItemsService.setItems(listItems);
   }
 
   onCheckboxChange(id: string, value: boolean) {
