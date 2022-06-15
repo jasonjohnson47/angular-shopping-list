@@ -1,11 +1,11 @@
 [
     {
         "category": "fruits",
-        "items": ["apples", "bananas", "oranges", "berries", "grapes", "melons", "avacado"]
+        "items": ["fruit", "apples", "bananas", "oranges", "berries", "grapes", "melons", "avocado", "ginger"]
     },
     {
         "category":"vegetables",
-        "items": ["broccoli", "carrots", "cucumbers", "garlic", "lettuce", "mushrooms", "onions", "peppers", "potatoes", "tomatoes", "zucchini"]
+        "items": ["broccoli", "broccolini", "carrots", "cucumbers", "garlic", "lettuce", "mushrooms", "onions", "peppers", "potatoes", "tomatoes", "zucchini", "string beans", "brussels sprouts", "asparagus", "kale", "corn", "salad"]
     },
     {
         "category":"canned goods",
@@ -17,11 +17,11 @@
     },
     {
         "category":"meat & fish",
-        "items": ["beef", "chicken", "pork", "fish", "bacon", "sausage"]
+        "items": ["ground beef", "steak", "hamburgers", "chicken", "pork", "fish", "salmon", "bacon", "sausage", "rotisserie chicken", "ground turkey"]
     },
     {
         "category":"deli",
-        "items": ["cold cuts", "sliced cheese", "chicken salad", "tuna salad", "potato salad", "macaroni salad"]
+        "items": ["deli/lunch meat", "cold cuts", "sliced cheese", "chicken salad", "tuna salad", "potato salad", "macaroni salad"]
     },
     {
         "category":"spices",
@@ -33,7 +33,7 @@
     },
     {
         "category":"sauces & oils",
-        "items": ["bbq sauce", "oil", "vinegar", "salad dressing", "soy sauce", "spaghetti sauce", "maple syrup"]
+        "items": ["bbq sauce", "olive oil", "canola oil", "vinegar", "salad dressing", "soy sauce", "spaghetti sauce", "maple syrup"]
     },
     {
         "category":"vegetarian",
@@ -41,23 +41,23 @@
     },
     {
         "category":"snacks",
-        "items": ["pretzels", "cookies", "chips", "dip/salsa", "crackers", "candy", "nuts", "popcorn", "raisins", "snack bars"]
+        "items": ["chocolate", "pretzels", "cookies", "chips", "dip/salsa", "crackers", "candy", "nuts", "popcorn", "raisins", "snack bars"]
     },
     {
         "category":"breads",
-        "items": ["sliced bread", "rolls", "loaf of bread", "bagels", "muffins", "pitas", "tortillas", "english muffins"]
+        "items": ["sliced bread", "rolls", "loaf of bread", "bagels", "muffins", "pitas", "tortillas", "taco shells", "english muffins"]
     },
     {
         "category":"beverages",
-        "items": ["water", "seltzer", "juice", "soda", "coffee", "tea", "beer", "wine"]
+        "items": ["water", "seltzer", "juice", "orange juice", "soda", "coffee", "tea", "beer", "wine"]
     },
     {
         "category":"dairy",
-        "items": ["milk", "butter", "eggs", "sliced cheese", "shredded cheese", "cream cheese", "yogurt"]
+        "items": ["milk", "butter", "eggs", "sliced cheese", "shredded cheese", "cream cheese", "yogurt", "half & half"]
     },
     {
         "category":"pasta & rice",
-        "items": ["spaghetti", "rice", "penne"]
+        "items": ["pasta", "rice", "penne", "spaghetti"]
     },
     {
         "category":"baking",
@@ -69,7 +69,7 @@
     },
     {
         "category":"toiletries",
-        "items": ["soap", "shampoo", "conditioner", "razors", "shaving cream", "deodorant", "lotion", "toothpaste", "floss", "pain reliever"]
+        "items": ["soap", "body wash", "shampoo", "conditioner", "razors", "shaving cream", "deodorant", "lotion", "toothpaste", "floss", "pain reliever", "cotton swabs", "condoms"]
     },
     {
         "category":"pet items",
@@ -77,10 +77,10 @@
     },
     {
         "category":"paper & wrap",
-        "items": ["toilet paper", "paper towels", "tissues", "aluminum foil", "plastic wrap", "plastic baggies"]
+        "items": ["toilet paper", "paper towels", "tissues", "aluminum foil", "plastic wrap", "plastic baggies", "paper plates", "napkins"]
     },
     {
         "category":"household",
-        "items": ["garbage bags", "laundry detergent", "laundry softener", "bleach", "dishwashing soap", "dishwasher pods", "hand soap", "household cleaner", "glass cleaner", "sponges", "batteries", "light bulbs", "air freshener"]
+        "items": ["garbage/trash bags", "laundry detergent", "laundry softener", "bleach", "dishwashing soap", "dishwasher pods", "hand soap", "household cleaner", "glass cleaner", "sponges", "batteries", "light bulbs", "air freshener"]
     }
 ]
