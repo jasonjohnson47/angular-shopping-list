@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
   ) { }
 
   @ViewChild('itemInput') itemInput!: any;
+  @ViewChild('dialogConfirmDeleteList') dialogConfirmDeleteList!: any;
 
   allShoppingItems: any = [];
 
@@ -121,6 +122,19 @@ export class AppComponent implements OnInit {
     const listItems = this.savedLists.find((list: SavedList) => listId == list.id).items;
     this.items = listItems;
     this.listItemsService.setItems(listItems);
+  }
+
+  listToDelete!: SavedList;
+
+  initDeleteSavedList(id: string) {
+    this.listToDelete = this.savedLists.find((savedList: SavedList) => savedList.id == id);
+    this.dialogConfirmDeleteList.nativeElement.show();
+  }
+
+  deleteSavedList(id: string) {
+    const newSavedList = this.savedLists.filter((savedList: SavedList) => savedList.id != id);
+    this.savedLists = newSavedList;
+    this.listItemsService.setSavedLists(newSavedList);
   }
 
   onCheckboxChange(id: string, value: boolean) {

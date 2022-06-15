@@ -12,6 +12,12 @@
     <sl-button slot="footer" variant="primary" (click)="uncheckAllItems(); dialogConfirmUncheck.hide()">Yes</sl-button>
   </sl-dialog>
 
+  <sl-dialog label="Confirm" #dialogConfirmDeleteList class="dialog-confirm-delete-list">
+    <p>Are you sure you want to delete the shopping list {{ listToDelete && listToDelete.name }}?</p>
+    <sl-button slot="footer" variant="default" (click)="dialogConfirmDeleteList.hide()">Cancel</sl-button>
+    <sl-button slot="footer" variant="primary" (click)="deleteSavedList(listToDelete.id); dialogConfirmDeleteList.hide()">Yes</sl-button>
+  </sl-dialog>
+
   <sl-dialog label="Save List" #dialogSaveList class="dialog-save-list">
     <div>
       <sl-input #listNameInput label="List Name" aria-required="true"></sl-input>
@@ -30,9 +36,10 @@
     <ul>
       <li
         *ngFor="let savedList of savedLists"
-        class="border-y -mt-px py-1"
+        class="border-y -mt-px flex justify-between items-center py-1"
       >
         <sl-button variant="text" size="medium" (click)="loadList(savedList.id); dialogSavedLists.hide()">{{ savedList.name }}</sl-button>
+        <sl-icon-button name="x" label="Delete" class="delete-icon-button" (click)="dialogSavedLists.hide(); initDeleteSavedList(savedList.id)"></sl-icon-button>
       </li>
     </ul>
     <sl-button slot="footer" variant="default" (click)="dialogSavedLists.hide()">Close</sl-button>
