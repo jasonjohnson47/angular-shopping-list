@@ -5,7 +5,7 @@
     },
     {
         "category":"vegetables",
-        "items": ["broccoli", "broccolini", "carrots", "cucumbers", "garlic", "lettuce", "mushrooms", "onions", "peppers", "potatoes", "tomatoes", "zucchini", "string beans", "brussels sprouts", "asparagus", "kale", "corn", "salad"]
+        "items": ["fresh vegetables", "broccoli", "broccolini", "carrots", "cucumbers", "garlic", "lettuce", "mushrooms", "onions", "peppers", "potatoes", "tomatoes", "zucchini", "string beans", "brussels sprouts", "asparagus", "kale", "corn", "salad"]
     },
     {
         "category":"canned goods",

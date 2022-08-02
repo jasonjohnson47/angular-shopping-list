@@ -147,4 +147,9 @@ export class AppComponent implements OnInit {
     this.listItemsService.setItems(updatedItems);
   }
 
+  isInListItemsToDisplay(itemLabel: String) {
+    const labelsInListItemsToDisplay = this.listItemsToDisplay.map((item: Item) => item.label.toLowerCase());
+    return labelsInListItemsToDisplay.includes(itemLabel.toLowerCase());
+  }
+
 }

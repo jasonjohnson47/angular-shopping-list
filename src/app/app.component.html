@@ -69,7 +69,7 @@
             <div *ngFor="let group of allShoppingItems">
               <sl-menu-label>{{ group.category }}</sl-menu-label>
               <ng-container *ngFor="let item of group.items">
-                <sl-menu-item value="{{ item }}" tabindex="0">{{ item }}</sl-menu-item>
+                <sl-menu-item [checked]="isInListItemsToDisplay(item)" value="{{ item }}" tabindex="0">{{ item }}</sl-menu-item>
               </ng-container>
             </div>
           </sl-menu>
