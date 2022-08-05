@@ -18,6 +18,7 @@ export class AppComponent implements OnInit {
 
   @ViewChild('itemInput') itemInput!: any;
   @ViewChild('dialogConfirmDeleteList') dialogConfirmDeleteList!: any;
+  @ViewChild('successToast') successToast!: any;
 
   allShoppingItems: any = [];
 
@@ -87,6 +88,13 @@ export class AppComponent implements OnInit {
     }
     this.listItemsService.setItems(this.items);
     this.itemInput.nativeElement.focus();
+    this.showToast(`${value} added to the list.`);
+  }
+
+  toastMessage: string = '';
+  showToast(message: string) {
+    this.toastMessage = message;
+    this.successToast.nativeElement.toast();
   }
 
   removeItem(id: string) {

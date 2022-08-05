@@ -142,4 +142,8 @@
       (click)="dialogSavedLists.show()"
     >View Saved Lists</sl-button>
   </div>
+  <sl-alert #successToast variant="success" duration="3000" closable>
+    <sl-icon slot="icon" name="check2-circle"></sl-icon>
+    {{toastMessage}}
+  </sl-alert>
 </main>
