@@ -49,27 +49,49 @@
   <section class="bg-slate-100 border border-solid border-slate-200 rounded p-5 mb-8">
       <h2 class="text-xl font-light text-center mb-4">Add Items to Your List</h2>
       <form ngNativeValidate (ngSubmit)="addItem(itemInput.value); itemInput.value = ''">
-        <sl-input #itemInput class="item-input mb-4" label="Item" placeholder="What do you need to buy?" size="medium" pill required="true" autocapitalize="off" (sl-input)="getAutocompleteSuggestions(itemInput.value)">
-          <!--<sl-icon-button slot="suffix" name="plus-circle-fill" label="Add Item to List" class="add-icon-button pr-2"></sl-icon-button>-->
+        <sl-input
+          #itemInput
+          class="item-input mb-4"
+          label="Item"
+          placeholder="What do you need to buy?"
+          size="medium"
+          pill required="true"
+          autocapitalize="off"
+          (sl-input)="getAutocompleteSuggestions(itemInput.value)"
+        >
           <sl-button type="submit" slot="suffix" variant="text" class="add-icon-button pr-2">
             <sl-icon name="plus-circle-fill" label="Add Item to List"></sl-icon>
           </sl-button>
         </sl-input>
-        <sl-menu *ngIf="itemInput.value && filteredAutoCompleteShoppingItems.length" (sl-select)="autoCompleteSelectAddItem($event); itemInput.value = ''">
+        <sl-menu
+          *ngIf="itemInput.value && filteredAutoCompleteShoppingItems.length"
+          (sl-select)="handleSelectItem($event); itemInput.value = ''"
+        >
           <div *ngFor="let group of filteredAutoCompleteShoppingItems">
             <sl-menu-label>{{ group.category }}</sl-menu-label>
             <ng-container *ngFor="let item of group.items">
-              <sl-menu-item value="{{ item }}" tabindex="0">{{ item }}</sl-menu-item>
+              <sl-menu-item
+                [checked]="isInListItemsToDisplay(item)"
+                value="{{ item }}"
+                tabindex="0"
+              >{{ item }}</sl-menu-item>
             </ng-container>
           </div>
         </sl-menu>
-        <sl-dropdown style="width:100%;">
+        <sl-dropdown
+          style="width:100%;"
+          [stayOpenOnSelect]="true"
+        >
           <sl-button slot="trigger" caret pill outline variant="primary" style="width: 100%;">Choose Items to Add</sl-button>
-          <sl-menu (sl-select)="autoCompleteSelectAddItem($event); itemInput.value = ''">
+          <sl-menu (sl-select)="handleSelectItem($event); itemInput.value = ''">
             <div *ngFor="let group of allShoppingItems">
               <sl-menu-label>{{ group.category }}</sl-menu-label>
               <ng-container *ngFor="let item of group.items">
-                <sl-menu-item [checked]="isInListItemsToDisplay(item)" value="{{ item }}" tabindex="0">{{ item }}</sl-menu-item>
+                <sl-menu-item
+                  [checked]="isInListItemsToDisplay(item)"
+                  value="{{ item }}"
+                  tabindex="0"
+                >{{ item }}</sl-menu-item>
               </ng-container>
             </div>
           </sl-menu>
@@ -92,7 +114,12 @@
             cdkDrag
           >
             <div class="list-item-placeholder" *cdkDragPlaceholder></div>
-            <sl-checkbox [checked]="item.completed" #listItemCheckbox (sl-change)="onCheckboxChange(item.id, listItemCheckbox.checked)" class="-mt-1">{{ item.label }}</sl-checkbox>
+            <sl-checkbox
+              [checked]="item.completed"
+              #listItemCheckbox
+              (sl-change)="onCheckboxChange(item.id, listItemCheckbox.checked)"
+              class="-mt-1"
+            >{{ item.label }}</sl-checkbox>
             <div class="flex">
               <sl-icon
                 [hidden]="listItemsToDisplay.length < 2"
@@ -100,7 +127,12 @@
                 cdkDragHandle
                 class="px-2 shopping-list-item-drag-handle"
               ></sl-icon>
-              <sl-icon-button name="x" label="Delete" class="delete-icon-button" (click)="removeItem(item.id)"></sl-icon-button>
+              <sl-icon-button
+                name="x"
+                label="Delete"
+                class="delete-icon-button"
+                (click)="removeItem(item.id)"
+              ></sl-icon-button>
             </div>
           </li>
       </ul>
@@ -142,8 +174,4 @@
       (click)="dialogSavedLists.show()"
     >View Saved Lists</sl-button>
   </div>
-  <sl-alert #successToast variant="success" duration="3000" closable>
-    <sl-icon slot="icon" name="check2-circle"></sl-icon>
-    {{toastMessage}}
-  </sl-alert>
 </main>

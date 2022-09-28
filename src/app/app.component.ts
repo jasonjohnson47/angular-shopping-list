@@ -1,8 +1,15 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { ListItemsService } from './list-items.service';
 import { Item, ShoppingGroup, SavedList } from './app.types';
 import { HttpClient } from '@angular/common/http';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+
+interface ToastNotification {
+  message: string,
+  variant?: string,
+  icon?: string,
+  duration?: number,
+}
 
 @Component({
   selector: 'app-root',
@@ -13,12 +20,12 @@ export class AppComponent implements OnInit {
 
   constructor(
     private listItemsService: ListItemsService,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private renderer: Renderer2
   ) { }
 
   @ViewChild('itemInput') itemInput!: any;
   @ViewChild('dialogConfirmDeleteList') dialogConfirmDeleteList!: any;
-  @ViewChild('successToast') successToast!: any;
 
   allShoppingItems: any = [];
 
@@ -32,11 +39,6 @@ export class AppComponent implements OnInit {
   filteredAutoCompleteShoppingItems: ShoppingGroup[] = [];
   items = this.listItemsService.getItems();
   savedLists = this.listItemsService.getSavedLists();
-
-  autoCompleteSelectAddItem($event: Event) {
-    this.addItem(($event as CustomEvent).detail.item.value);
-  }
-
   filteredListShoppingItems: 'all' | 'need' | 'got' = 'all';
 
   get listItemsToDisplay() {
@@ -79,6 +81,32 @@ export class AppComponent implements OnInit {
     return nextId;
   }
 
+  createToast(toast: ToastNotification) {
+    const {
+      message,
+      variant = 'primary',
+      icon = 'info-circle',
+      duration = 3000
+    } = toast;
+
+    const toastEl = this.renderer.createElement('sl-alert');
+    const iconEl = this.renderer.createElement('sl-icon');
+    const messageText = this.renderer.createText(message);
+
+    this.renderer.setProperty(toastEl, 'variant', variant);
+    this.renderer.setProperty(toastEl, 'duration', duration);
+    this.renderer.setProperty(toastEl, 'closable', true);
+
+    this.renderer.setAttribute(iconEl, 'slot', 'icon');
+    this.renderer.setProperty(iconEl, 'name', icon);
+
+    this.renderer.appendChild(toastEl, iconEl);
+    this.renderer.appendChild(toastEl, messageText);
+    this.renderer.appendChild(document.body, toastEl);
+
+    toastEl.toast();
+  }
+
   addItem(value: string) {
     const newItem = { id: this.getNextId(this.items), label: value, completed: false };
     if (this.items == null) {
@@ -88,19 +116,47 @@ export class AppComponent implements OnInit {
     }
     this.listItemsService.setItems(this.items);
     this.itemInput.nativeElement.focus();
-    this.showToast(`${value} added to the list.`);
+    this.createToast({
+      message: `${value} added to the list`,
+      variant: 'success',
+      icon: 'check2-circle',
+      duration: 3000
+    });
   }
 
-  toastMessage: string = '';
-  showToast(message: string) {
-    this.toastMessage = message;
-    this.successToast.nativeElement.toast();
+  handleSelectItem($event: Event) {
+    const item = ($event as CustomEvent).detail.item;
+    if (item.checked) {
+      this.removeItemByName(item.value);
+    } else {
+      this.addItem(($event as CustomEvent).detail.item.value);
+    }
   }
 
   removeItem(id: string) {
+    const deletedItem: Item = this.items.find((item: Item) => item.id == id);
     const newItems = this.items.filter((item: Item) => item.id != id);
+
     this.items = newItems;
     this.listItemsService.setItems(newItems);
+    this.createToast({
+      message: `${deletedItem.label} removed from the list`,
+      variant: 'danger',
+      icon: 'info-circle',
+      duration: 3000
+    });
+  }
+
+  removeItemByName(name: string) {
+    const newItems = this.items.filter((item: Item) => item.label.toLowerCase() != name.toLowerCase());
+    this.items = newItems;
+    this.listItemsService.setItems(newItems);
+    this.createToast({
+      message: `${name} removed from the list`,
+      variant: 'danger',
+      icon: 'info-circle',
+      duration: 3000
+    });
   }
 
   removeAllItems() {
