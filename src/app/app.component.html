@@ -59,7 +59,7 @@
           autocapitalize="off"
           (sl-input)="getAutocompleteSuggestions(itemInput.value)"
         >
-          <sl-button type="submit" slot="suffix" variant="text" class="add-icon-button pr-2">
+          <sl-button type="submit" slot="suffix" variant="text" class="add-icon-button pr-2" (click)="itemInput.focus()">
             <sl-icon name="plus-circle-fill" label="Add Item to List"></sl-icon>
           </sl-button>
         </sl-input>

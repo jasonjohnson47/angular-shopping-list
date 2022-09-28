@@ -115,7 +115,6 @@ export class AppComponent implements OnInit {
       this.items.push(newItem);
     }
     this.listItemsService.setItems(this.items);
-    this.itemInput.nativeElement.focus();
     this.createToast({
       message: `${value} added to the list`,
       variant: 'success',
